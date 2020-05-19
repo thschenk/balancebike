@@ -1,6 +1,7 @@
+include <variables.scad>;
+use <utils.scad>;
 
-
-module two_arc_frame(a=80, b=60, steer_angle=13, outer_x=700, outer_y=200) {
+module two_arc_frame(a, b, steer_angle, outer_x, outer_y) {
 
     inner_offset_y = a;
     inner_x = outer_x - b*sin(steer_angle);
@@ -29,4 +30,51 @@ module two_arc_frame(a=80, b=60, steer_angle=13, outer_x=700, outer_y=200) {
     polygon(concat(points_outer_arc, points_inner_arc));
 }
 
-two_arc_frame();
+
+
+module frame_2d() {
+    a=90;
+    b=70;
+    outer_x = frame_length;
+    outer_y = frame_height;
+    d_axis = 22;
+
+    difference() {
+        union() {
+            translate([0,-a/2])
+                two_arc_frame(a=a,b=b,steer_angle=steer_angle,
+                    outer_x=outer_x,outer_y=outer_y+a/2);
+            circle(d=a);
+        }
+        circle(d=d_axis);
+    }
+}
+
+module frame() {
+    thickness=15;
+    rotate([90,0,0]) rotate([0,90,0])
+        linear_extrude(height=thickness) {
+            frame_2d();
+        }
+}
+
+//two_arc_frame();
+//frame_2d();
+
+//
+//module frame() {
+//    copy_mirror_y() {
+//        translate([frame_spacing_axis/2,0,0])
+//            rotate([0,0,frame_angle])
+//                single_frame();
+//    };
+//}
+//
+
+
+
+
+
+
+
+
