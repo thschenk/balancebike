@@ -33,18 +33,16 @@ module two_arc_frame(a, b, steer_angle, outer_x, outer_y) {
 
 
 module frame_2d() {
-    a=90;
-    b=70;
     outer_x = frame_length;
     outer_y = frame_height;
     d_axis = 22;
 
     difference() {
         union() {
-            translate([0,-a/2])
-                two_arc_frame(a=a,b=b,steer_angle=steer_angle,
-                    outer_x=outer_x,outer_y=outer_y+a/2);
-            circle(d=a);
+            translate([0,-frame_a/2])
+                two_arc_frame(a=frame_a,b=frame_b,steer_angle=steer_angle,
+                    outer_x=outer_x,outer_y=outer_y+frame_a/2);
+            circle(d=frame_a);
         }
         circle(d=d_axis);
     }
@@ -57,6 +55,8 @@ module frame() {
             frame_2d();
         }
 }
+
+frame();
 
 //two_arc_frame();
 //frame_2d();

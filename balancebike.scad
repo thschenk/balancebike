@@ -10,20 +10,23 @@ include <variables.scad>;
 difference() {
     union() {
         copy_mirror_y() {
-            translate([frame_spacing_axis/2,0,0]) rotate([0,0,frame_angle]) frame();
+            color(frame_color) 
+                translate([frame_spacing_axis/2,0,0])
+                    rotate([0,0,frame_angle])
+                        frame();
         };
 
         translate([0, frame_length, frame_height])
             rotate([steer_angle,0,0])
                 translate([0,hinge_frame_y_offset(),0])
-                    color("LightGreen")
+                    color("SpringGreen")
                         hinge_frame();
 
 
         // Steer
         translate([0,front_wheel_y,0]) 
             rotate([steer_angle,0,0])
-                steer();
+                    steer();
 
         // Wheels
         color("LightSlateGray") back_wheel();

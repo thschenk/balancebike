@@ -3,6 +3,7 @@ use <scad-utils/morphology.scad>;
 use <utils.scad>;
 include <variables.scad>;
 use <frame.scad>;
+use <hinge_frame_connection.scad>;
 
 hinge_height = 70;
 outer_height = 12;
@@ -11,7 +12,7 @@ inner_height = hinge_height-2*outer_height-2*spacing;
 
 hinge_diameter = 24;
 hole_diameter = 5.3;
-hinge_space_diameter = hinge_diameter + 1;
+hinge_space_diameter = hinge_diameter + 2;
 
 bearing_cut_diameter = 16.3;
 bearing_cut_height = 5.2;
@@ -19,10 +20,19 @@ bearing_cut_height = 5.2;
 $fn=50;
 
 
+wall_width = 5;
+
 module hinge_steer_shape_flat() {
-    fillet(r=10) union() {
-        translate([-fork_spacing/2,5])
-            square([fork_spacing,15]);
+    fillet(r=6) union() {
+        
+        difference() { 
+            translate([-fork_spacing/2,10])
+                square([fork_spacing, fork_width]);
+            
+            translate([-fork_spacing/2+wall_width,10+wall_width])
+                square([fork_spacing-2*wall_width, fork_width-2*wall_width]);
+        
+        }
         
         circle(d=hinge_diameter);
     }
@@ -53,25 +63,44 @@ module hinge_steer() {
 }
 
 
-function hinge_frame_y_offset() = 18;
+function hinge_frame_y_offset() = 19;
 
 
 
 module hinge_frame() {
-    hinge_frame_length = 50;
+    //hinge_frame_length = 50;
+    
+    fbw = frame_block_width();
+    
     difference() {
         union() {
-            translate([-frame_spacing_front/2,-hinge_frame_length-6,0]) 
-                cube([frame_spacing_front,hinge_frame_length,hinge_height]);
-                
+//            translate([-frame_spacing_front/2,-hinge_frame_length-6,0]) 
+//                cube([frame_spacing_front,hinge_frame_length,hinge_height]);
+            
+            translate([0,-21]) 
+                rotate([-steer_angle,0,0])
+                    basic_frame_connection_block();        
+            
             cylinder(d=hinge_diameter, h=hinge_height);
+            
+            translate([-fbw/2,-17,0]) cube([fbw,17,hinge_height]);
+            
+            
         }
         cylinder(d=hole_diameter, h=hinge_height);
         
+        copy_mirror_y() {
+            translate([fbw/2+5,0,0])
+               cut_cylinder(d=fbw-hinge_diameter+2*5,h=hinge_height);
+        }
+        
+        
+        extra_diameter = 25;
         // cut outs for outer hinges
-        cut_cylinder(d=hinge_space_diameter, h=outer_height+spacing, top=0);
-        translate([0,0,hinge_height-outer_height-spacing])
-            cut_cylinder(d=hinge_space_diameter, h=outer_height+spacing, bottom=0);
+        translate([0,extra_diameter/2,0])
+            cut_cylinder(d=hinge_space_diameter+extra_diameter, h=outer_height+spacing, top=0);
+        translate([0,extra_diameter/2,hinge_height-outer_height-spacing])
+            cut_cylinder(d=hinge_space_diameter+extra_diameter, h=outer_height+spacing, bottom=0);
         
         translate([0,0,outer_height+spacing+inner_height-bearing_cut_height])
             cut_cylinder(d=bearing_cut_diameter, h=bearing_cut_height, bottom=0);
@@ -86,10 +115,13 @@ module hinge_frame() {
 
 
 hinge_test_spacing = 30;
+hinge_test_rotation = 0;
 
 difference() {
     union() {
-        translate([0,hinge_test_spacing,0]) hinge_steer();
+        translate([0,hinge_test_spacing,0])
+            rotate([0,0,hinge_test_rotation])
+                hinge_steer();
         hinge_frame();
     }
     
@@ -103,6 +135,9 @@ difference() {
     %translate([0,0,outer_height+spacing+inner_height-5])
         bearing(model=625);
 }
+
+
+
 
 
 
