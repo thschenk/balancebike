@@ -50,15 +50,17 @@ module hinge_steer() {
         // bolt hole
         cut_cylinder(d=hole_diameter, h=hinge_height);
         
+        
+        extra_diameter = 25;
         // cut out for inner hinge
-        translate([0,0,outer_height])
-            cylinder(d=hinge_space_diameter, h=inner_height+2*spacing);
+        translate([0,-extra_diameter/2,outer_height])
+            cylinder(d=hinge_space_diameter+extra_diameter, h=inner_height+2*spacing);
         
         // cut out for square inner hinge
-        cut_w=60;
-        cut_d=4.99;
-        translate([-cut_w/2,-1,outer_height])
-            cube([cut_w,cut_d+1,inner_height+2*spacing]);        
+//        cut_w=60;
+//        cut_d=4.99;
+//        translate([-cut_w/2,-1,outer_height])
+//            cube([cut_w,cut_d+1,inner_height+2*spacing]);        
     }
 }
 
@@ -99,9 +101,12 @@ module hinge_frame() {
         // cut outs for outer hinges
         translate([0,extra_diameter/2,0])
             cut_cylinder(d=hinge_space_diameter+extra_diameter, h=outer_height+spacing, top=0);
+        
         translate([0,extra_diameter/2,hinge_height-outer_height-spacing])
             cut_cylinder(d=hinge_space_diameter+extra_diameter, h=outer_height+spacing, bottom=0);
         
+        
+        // cut outs for bearings
         translate([0,0,outer_height+spacing+inner_height-bearing_cut_height])
             cut_cylinder(d=bearing_cut_diameter, h=bearing_cut_height, bottom=0);
         
@@ -114,15 +119,24 @@ module hinge_frame() {
 
 
 
-hinge_test_spacing = 30;
+hinge_test_spacing = 0;
 hinge_test_rotation = 0;
 
 difference() {
     union() {
-        translate([0,hinge_test_spacing,0])
+        color("DodgerBlue") translate([0,hinge_test_spacing,0])
             rotate([0,0,hinge_test_rotation])
                 hinge_steer();
-        hinge_frame();
+        
+        color("SpringGreen") hinge_frame();
+
+        // two bearings
+        bearing_heights = [outer_height+spacing, outer_height+spacing+inner_height-5];
+        for(bearing_height=bearing_heights) 
+            color("silver")
+                translate([0,0,bearing_height]) bearing(model=625);
+        
+
     }
     
     // side cut
@@ -131,9 +145,9 @@ difference() {
     // back-cut
     //translate([-100.1,-150,-10]) cube([100,300,200]);
     
-    %translate([0,0,outer_height+spacing]) bearing(model=625);
-    %translate([0,0,outer_height+spacing+inner_height-5])
-        bearing(model=625);
+    // top-cut
+    //translate([-100.1,-150,35]) cube([200,300,200]);
+    
 }
 
 
