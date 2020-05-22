@@ -37,6 +37,8 @@ module frame_2d() {
     outer_y = frame_height;
     d_axis = 22;
 
+    $fn=60;
+
     difference() {
         union() {
             translate([0,-frame_a/2])
@@ -56,21 +58,43 @@ module frame() {
         }
 }
 
-frame();
 
-//two_arc_frame();
-//frame_2d();
 
-//
-//module frame() {
-//    copy_mirror_y() {
+module frame_3d() {
+    copy_mirror_y()
+        translate([frame_spacing_axis/2,0,0])
+            rotate([0,0,frame_angle])
+                frame();
+
+}
+
+module frame_infill() {
+//    copy_mirror_y()
 //        translate([frame_spacing_axis/2,0,0])
 //            rotate([0,0,frame_angle])
-//                single_frame();
-//    };
-//}
-//
+    
+    rotation_point = frame_spacing_axis/2 / tan(frame_angle);
+    
+    magical_extra_translation = 2.5;
+    
+    echo(frame_angle);
+    echo(tan(frame_angle));
+    echo(rotation_point);
+    
+    rotate([0,0,90])
+        translate([rotation_point-magical_extra_translation,0,0])
+            rotate([0,0,-frame_angle])
+                rotate_extrude(angle=frame_angle*2, convexity=3)
+                    translate([-rotation_point,0])
+                        frame_2d();
 
+}
+
+
+
+//frame();
+%frame_3d();
+frame_infill();
 
 
 

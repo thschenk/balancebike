@@ -9,12 +9,7 @@ include <variables.scad>;
 // Frame
 difference() {
     union() {
-        copy_mirror_y() {
-            color(frame_color) 
-                translate([frame_spacing_axis/2,0,0])
-                    rotate([0,0,frame_angle])
-                        frame();
-        };
+        color(frame_color) frame_3d();
 
         translate([0, frame_length, frame_height])
             rotate([steer_angle,0,0])
