@@ -2,13 +2,18 @@ use <utils.scad>;
 include <variables.scad>;
 use <frame.scad>;
 
-%translate([0,-frame_length*cos(frame_angle),-frame_height]) copy_mirror_y() {
+
+frame_translate_y = -frame_length*cos(frame_angle);
+
+
+%translate([0,frame_translate_y,-frame_height]) copy_mirror_y() {
     translate([frame_spacing_axis/2,0,0]) rotate([0,0,frame_angle]) frame();
 };
 
 
 basic_frame_connection_block();
 
+old_block();
 
 module x_sym_cube(ax,ay,az,bx,by,bz,cx,cy,cz,dx,dy,dz) {
     CubePoints = [
@@ -35,6 +40,31 @@ module x_sym_cube(ax,ay,az,bx,by,bz,cx,cy,cz,dx,dy,dz) {
 }
 
 module basic_frame_connection_block() {
+    
+    length = 60;
+    
+    
+    intersect_cube_width = frame_spacing_front + 10;
+    
+    intersection() {
+        translate([0,frame_translate_y,-frame_height]) frame_infill();
+        
+        
+        translate([0,-length/2,0])
+            cube([intersect_cube_width,length,2*frame_b],center=true);
+    }
+    
+    
+}
+    
+function frame_block_width() = 2 *( frame_spacing_front/2 + wood_thickness*cos(frame_angle));
+
+
+
+
+
+module old_block() {
+    
 
     angle = 25;
 
@@ -79,7 +109,3 @@ module basic_frame_connection_block() {
                 cube([2*ex,3,frame_b]);
     }
 }
-    
-function frame_block_width() = 2 *( frame_spacing_front/2 + wood_thickness*cos(frame_angle));
-
-

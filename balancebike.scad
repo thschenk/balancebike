@@ -3,6 +3,7 @@ use <wheels.scad>;
 use <steer.scad>;
 use <utils.scad>;
 use <hinge.scad>;
+use <saddle.scad>;
 include <variables.scad>;
 
 
@@ -17,6 +18,7 @@ difference() {
                     color("SpringGreen")
                         hinge_frame();
 
+        translate([0,saddle_y,0]) saddle_complete();
 
         // Steer
         translate([0,front_wheel_y,0]) 

@@ -7,6 +7,8 @@ frame_spacing_front = 20;
 frame_a = 90;
 frame_b = 70;
 
+saddle_y = 210;
+
 steer_angle = 15;
 
 // front fork and steer

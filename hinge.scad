@@ -119,7 +119,7 @@ module hinge_frame() {
 
 
 
-hinge_test_spacing = 0;
+hinge_test_spacing = 20;
 hinge_test_rotation = 0;
 
 difference() {
