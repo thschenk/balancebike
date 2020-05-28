@@ -65,7 +65,7 @@ module hinge_steer() {
 }
 
 
-function hinge_frame_y_offset() = 19;
+function hinge_frame_y_offset() = 16;
 
 
 
@@ -76,11 +76,9 @@ module hinge_frame() {
     
     difference() {
         union() {
-//            translate([-frame_spacing_front/2,-hinge_frame_length-6,0]) 
-//                cube([frame_spacing_front,hinge_frame_length,hinge_height]);
             
-            translate([0,-21]) 
-                rotate([-steer_angle,0,0])
+            translate([0,-18]) 
+                rotate([0,0,0])
                     basic_frame_connection_block();        
             
             cylinder(d=hinge_diameter, h=hinge_height);

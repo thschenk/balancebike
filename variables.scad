@@ -1,7 +1,7 @@
 
 // frame
-frame_length=596;
-frame_height=179;
+frame_length=598;
+frame_height=180;
 frame_spacing_axis = 120;
 frame_spacing_front = 20;
 frame_a = 90;
