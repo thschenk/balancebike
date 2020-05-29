@@ -1,6 +1,8 @@
 include <variables.scad>;
 use <utils.scad>;
 use <hinge_named.scad>;
+use <hinge.scad>;
+
 
 handle_bar_diameter = 25; 
 handle_bar_width = 400;
@@ -60,7 +62,10 @@ module steer() {
         translate([0,0,handle_bar_height])
             handleprotector();
     
-    color("DodgerBlue") translate([0,-35,200]) hinge_steer_named();
+    translate([0,-35,200]) {
+        hinge_steer_named();
+        hinge_steer_bolts();
+    }
 }
 
 steer();

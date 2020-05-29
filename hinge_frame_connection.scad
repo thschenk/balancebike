@@ -23,9 +23,9 @@ module basic_frame_connection_block() {
             
         translate([0,0,-1])
             linear_extrude(height=100)
-                offset(r=-3)
+                offset(r=-7)
                     projection(cut=true)
-                basic_frame_connection_block_a();
+                        basic_frame_connection_block_a();
     }
 
     basic_frame_connection_block_b();
@@ -35,7 +35,7 @@ module basic_frame_connection_block_a() {
     
     length = 60;
     
-    intersect_cube_width = frame_spacing_front + 10;
+    intersect_cube_width = frame_spacing_axis;
     
     intersection() {
         rotate([-steer_angle,0,0])

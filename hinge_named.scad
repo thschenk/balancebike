@@ -19,13 +19,13 @@ module hinge_steer_cut_mask(connections=true) {
             
             // connect the A's
             for (ax=[-8.8, 7.75]) 
-                translate([ax,0]) 
+                translate([ax,0])
                     square([width, 30], center=true);        
             
             // connect the N
-    //        for (ax=[21]) 
-    //            translate([ax+width/2,0]) 
-    //                square([width, 30], center=true);                
+            for (ax=[21]) 
+                translate([ax+width/2,0]) 
+                    square([width, 30], center=true);                
         }
     }
     
@@ -53,7 +53,7 @@ module hinge_steer_named() {
     cut_depth = 10;
     
     
-    difference() {
+    color("DodgerBlue") difference() {
         hinge_steer();
         
         translate([0,cut_offset_y, cut_offset_z])
