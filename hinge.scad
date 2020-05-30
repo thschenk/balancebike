@@ -19,6 +19,7 @@ hinge_space_diameter = hinge_diameter + 2;
 
 bearing_cut_diameter = 16.3;
 bearing_cut_height = 5.2;
+bearing_cut_diameter_inner = 12;
 
 $fn=50;
 
@@ -163,8 +164,15 @@ module hinge_frame() {
         translate([0,0,outer_height+spacing+inner_height-bearing_cut_height])
             cut_cylinder(d=bearing_cut_diameter, h=bearing_cut_height, bottom=0);
         
+        translate([0,0,outer_height+spacing+inner_height-bearing_cut_height-1])
+            cut_cylinder(d=bearing_cut_diameter_inner, h=bearing_cut_height, bottom=0);
+        
+        
         translate([0,0,outer_height+spacing])
             cut_cylinder(d=bearing_cut_diameter, h=bearing_cut_height, top=0);
+        
+        translate([0,0,outer_height+spacing+1])
+            cut_cylinder(d=bearing_cut_diameter_inner, h=bearing_cut_height, top=0);
         
         
         // nut holes
@@ -220,7 +228,7 @@ difference() {
 
         // two bearings
         bearing_heights = [outer_height+spacing, outer_height+spacing+inner_height-5];
-        for(bearing_height=bearing_heights) 
+        *for(bearing_height=bearing_heights) 
             color("silver")
                 translate([0,0,bearing_height]) bearing(model=625);
         

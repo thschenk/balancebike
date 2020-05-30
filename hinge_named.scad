@@ -23,9 +23,9 @@ module hinge_steer_cut_mask(connections=true) {
                     square([width, 30], center=true);        
             
             // connect the N
-            for (ax=[21]) 
-                translate([ax+width/2,0]) 
-                    square([width, 30], center=true);                
+//            for (ax=[21]) 
+//                translate([ax+width/2,0]) 
+//                    square([width, 30], center=true);                
         }
     }
     
