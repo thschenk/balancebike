@@ -4,6 +4,8 @@ use <hinge.scad>;
 
 /*
 Printed on 30 may 2020, with Cura 4.4:
+
+Generic settings
     height 0.15
     infill overlap 20
     speed 45
@@ -12,6 +14,7 @@ Printed on 30 may 2020, with Cura 4.4:
     support density 20%
     adhesion brim
     wall thickness 1.5
+     
 */
 
 intersection() {
