@@ -20,5 +20,4 @@
 
 ## To fix
 - Slightly stronger letter supports
-- Rotate nut holes
 - Use safe cut-out cylinders for bolts

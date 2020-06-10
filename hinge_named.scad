@@ -8,7 +8,7 @@ module hinge_steer_cut_mask(connections=true) {
 
 
         if (connections) {
-            width=1;
+            width=1.6;
 
             // connect the D
             d_x = -26;
@@ -23,9 +23,9 @@ module hinge_steer_cut_mask(connections=true) {
                     square([width, 30], center=true);        
             
             // connect the N
-//            for (ax=[21]) 
-//                translate([ax+width/2,0]) 
-//                    square([width, 30], center=true);                
+//            for (ax=[26.5]) 
+//                translate([ax+width,0]) 
+//                    #square([width, 30], center=true);                
         }
     }
     
@@ -48,7 +48,7 @@ module hinge_steer_named() {
     
     cut_offset_y = 60 - 1.5;
     
-    cut_offset_z = 40;
+    cut_offset_z = 36;
     
     cut_depth = 10;
     

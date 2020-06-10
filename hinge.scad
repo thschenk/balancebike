@@ -87,7 +87,7 @@ module hinge_steer() {
                     translate([nut_x,steer_nut_y, z])
                         rotate([0,90,0]) 
                             union() {
-                                nutHole(8, tolerance=0.1);
+                                rotate([0,0,90]) nutHole(8, tolerance=0.1);
                                 cylinder(d=8,h=80,center=true);
                             }
              }
@@ -182,7 +182,7 @@ module hinge_frame() {
                         rotate([0,0,frame_angle]) 
                             rotate([0,90,0]) 
                                 union() {
-                                    nutHole(8, tolerance=0.1);
+                                    rotate([0,0,90]) nutHole(8, tolerance=0.1);
                                     cylinder(d=8,h=40);
                                 }
         }
