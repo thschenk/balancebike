@@ -183,7 +183,8 @@ module hinge_frame() {
                             rotate([0,90,0]) 
                                 union() {
                                     rotate([0,0,90]) nutHole(8, tolerance=0.1);
-                                    cylinder(d=8,h=40);
+                                    //cylinder(d=8,h=40);
+                                    rotate([0,0,90]) safecylinder(d=8,h=40);
                                 }
         }
              
@@ -224,11 +225,11 @@ difference() {
         
         hinge_frame();
         
-        frame_bolts();
+        *frame_bolts();
 
         // two bearings
         bearing_heights = [outer_height+spacing, outer_height+spacing+inner_height-5];
-        *for(bearing_height=bearing_heights) 
+        for(bearing_height=bearing_heights) 
             color("silver")
                 translate([0,0,bearing_height]) bearing(model=625);
         

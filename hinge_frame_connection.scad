@@ -53,7 +53,7 @@ module basic_frame_connection_block_b() {
     
     bw = frame_block_width();
     difference() {
-        translate([-bw/2,0,0])
+        translate([-bw/2,-0.1,0])
             cube([bw,10,frame_b]);
         
         rotate([-steer_angle,0,0])

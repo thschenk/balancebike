@@ -17,6 +17,7 @@
 
 #### Hange frame
     Support only touching baseplate
+    Use towers: false
 
 ## To fix
 - Slightly stronger letter supports

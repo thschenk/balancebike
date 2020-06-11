@@ -71,7 +71,7 @@ module saddle_complete() {
     color("SpringGreen") saddle_mount();
     color("SpringGreen") translate([0,-60, saddle_offset+110]) saddle();
     color(frame_color) translate([0,0, saddle_offset+5]) saddle_pin();
-    frame_bolts();
+    saddle_frame_bolts();
 }
 
 
@@ -158,7 +158,7 @@ module saddle_mount() {
 }
 
 
-module frame_bolts() {
+module saddle_frame_bolts() {
         // bolts
     copy_mirror_y() {
                 for (bolt_yz=bolts_yz) {
