@@ -25,7 +25,7 @@ $fn=50;
 
 
 back_wall_width = 6;
-front_wall_width = 4;
+front_wall_width = 5;
 
 side_wall_width = 10;
 
@@ -70,8 +70,14 @@ module hinge_steer() {
         cut_cylinder(d=hole_diameter, h=hinge_height);
         
         // bolt hole square
-        translate([0,0,hinge_height+2-3.75])
-            cube([5.8, 5.8, 4], center=true);
+        translate([0,0,hinge_height+2-3.2])
+            cube([5.2, 5.2, 4], center=true);
+        
+        for (i=[0:3])
+            rotate([0,0,i*90])
+                translate([2.5,2.5,hinge_height-1.6])
+                    cylinder(d=0.6, h=2);
+                
         
         extra_diameter = 25;
         
@@ -88,7 +94,7 @@ module hinge_steer() {
                         rotate([0,90,0]) 
                             union() {
                                 rotate([0,0,90]) nutHole(8, tolerance=0.1);
-                                cylinder(d=8,h=80,center=true);
+                                rotate([0,0,90]) safecylinder(d=8,h=80,center=true);
                             }
              }
 
@@ -220,7 +226,7 @@ difference() {
         translate([0,hinge_test_spacing,0])
             rotate([0,0,hinge_test_rotation]) {
                 hinge_steer();
-                hinge_steer_bolts();
+                *hinge_steer_bolts();
             }
         
         hinge_frame();
