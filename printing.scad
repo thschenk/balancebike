@@ -1,6 +1,7 @@
 use <hinge_named.scad>;
 include <variables.scad>;
 use <hinge.scad>;
+use <saddle.scad>;
 
 /*
 Printed on 30 may 2020, with Cura 4.4:
@@ -52,8 +53,25 @@ Hinge Steer
     top layers 3
 
 
+Printed on 12 june 2020, with Cura 4.4:
+Saddle mount
+
+    height 0.2
+    infill overlap 20
+    infill 40%
+    Gradual infill steps 2
+    speed 45
+    temp 200
+    support N
+    adhesion skirt
+    wall thickness 1.2
+    bottom layers 3
+    top layers 3
+    
+
 */
 
 
 //hinge_frame();
-hinge_steer_named();
+//hinge_steer_named();
+saddle_mount();
