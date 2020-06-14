@@ -91,10 +91,10 @@ module frame_infill() {
 }
 
 
-
+rotate([0,0,-17]) frame_2d();
 //frame();
-%frame_3d();
-frame_infill();
+//frame_3d();
+//frame_infill();
 
 
 
