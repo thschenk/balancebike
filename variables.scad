@@ -16,6 +16,7 @@ front_wheel_y = 700;
 fork_spacing = 100;
 fork_width = 50;
 
+//wood_thickness = 9;
 wood_thickness = 15;
 
 

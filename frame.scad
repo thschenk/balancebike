@@ -51,9 +51,8 @@ module frame_2d() {
 }
 
 module frame() {
-    thickness=15;
     rotate([90,0,0]) rotate([0,90,0])
-        linear_extrude(height=thickness) {
+        linear_extrude(height=wood_thickness, convexity=10) {
             frame_2d();
         }
 }

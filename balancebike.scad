@@ -5,6 +5,7 @@ use <utils.scad>;
 use <hinge.scad>;
 use <saddle.scad>;
 use <hardware.scad>;
+use <axle.scad>;
 include <variables.scad>;
 
 
@@ -25,6 +26,8 @@ difference() {
                     }
 
         translate([0,saddle_y,0]) saddle_complete();
+                    
+        color("DodgerBlue") axle_clamps();
 
         // Steer
         translate([0,front_wheel_y,0]) 

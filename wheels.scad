@@ -1,8 +1,10 @@
 
 
-module back_wheel() {
+module back_wheel(tire=true) {
     rotate([0,90,0]) {
-        cylinder(d=310, h=55, center=true);
+        if (tire) {
+            cylinder(d=310, h=55, center=true);
+        }
         cylinder(d=60, h=58, center=true);
         cylinder(d=9.5, h=175, center=true);
         
