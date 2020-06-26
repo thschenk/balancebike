@@ -9,8 +9,8 @@ use <MCAD/nuts_and_bolts.scad>;
 
 
 hinge_height = 70;
-outer_height = 12;
-spacing = 1;
+outer_height = 12.1;
+spacing = 0.9;
 inner_height = hinge_height-2*outer_height-2*spacing;
 
 hinge_diameter = 24;
@@ -24,8 +24,8 @@ bearing_cut_diameter_inner = 12;
 $fn=50;
 
 
-back_wall_width = 6;
-front_wall_width = 5;
+back_wall_width = 10;
+front_wall_width = 6;
 
 side_wall_width = 10;
 
@@ -215,7 +215,7 @@ module frame_bolts() {
 }
 
 
-hinge_test_spacing = 30;
+hinge_test_spacing = 0;
 hinge_test_rotation = 0;
 
 

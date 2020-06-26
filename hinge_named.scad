@@ -75,7 +75,7 @@ module hinge_steer_named() {
 
 color("DodgerBlue") translate([0,100,0]) rotate([0,0,180]) hinge_steer_named();
 
-color("white") translate([0,51,40]) cube([80,10,100], center=true);
+color("white") translate([0,55,40]) cube([80,10,100], center=true);
 
 hinge_steer_cut_mask();
 
