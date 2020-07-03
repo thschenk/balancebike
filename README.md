@@ -17,6 +17,8 @@
 #### Hinge steer
     Make sure the 'N' is printed with full support
     Use support blockers for nut holes
+    Support density 15%
+    Temperature 210
     Skirt
     Wall thickness 3mm, 7 lines
     Top thickness 2mm
@@ -26,10 +28,17 @@
     infill 70%
     Infill pattern Gyroid
 
-#### Hange frame
+
+#### Hinge frame
     Support only touching baseplate
     Use towers: false
-
-## To fix
-- Slightly stronger letter supports
-- Use safe cut-out cylinders for bolts
+    Support density 25%
+    Temperature 205
+    Buildplate 50
+    Infill pattern Gyroid
+    infill 45%
+    Wall thickness 3mm, 7 lines
+    Top thickness 3mm
+    Bottom thickness 3mm
+    Top/Bottom pattern concentric
+    Skirt
