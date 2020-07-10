@@ -42,3 +42,7 @@
     Bottom thickness 3mm
     Top/Bottom pattern concentric
     Skirt
+
+#### Axle
+    Same settings as Hinge frame, except for:
+    Wall thickness 2mm
