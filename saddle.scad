@@ -23,62 +23,57 @@ x0 = frame_spacing_axis/2 - saddle_y*sin(frame_angle);
 wall = 7;
 
 module saddle() {
+    r = 5;
+    w1 = 40;
+    w2 = 80;
+    length = 160;
+    y_offset = 20;
     
-    // widths
-    a=70;
-    b=40;
-    c=50;
-    
-    // lengths
-    d=150;
-    e=50;
-    
-    // back side
-    angle=40;
-    
-    // bottom
-    h=20;
-    bw=20;
+    hull() 
+        copy_mirror_y() {
+            translate([w1/2-r, length/2-r+y_offset,0])
+                cylinder(r=r, h=wood_thickness);
+            translate([w2/2-r, -length/2-r+y_offset,0])
+                cylinder(r=r, h=wood_thickness);
+        }
+}
 
-    points_a = [
-        [ a/2,  0],
-        [ b/2,  d],
-        [-b/2,  d],
-        [-a/2,  0],
-    ];
-
-    points_b = [
-        [ a/2,  0],
-        [-a/2,  0],
-        [-c/2, -e],
-        [ c/2, -e]
-    ];
-
-     
-    minkowski() {
-        union() {
-            
-            hull() {
-                linear_extrude(height=1)
-                    polygon(points = points_a);
-                
-                
-                translate([-bw/2,0,-h]) rotate([asin(h/d),0,0]) cube([bw, d, 1]);
+module saddle_to_pin_connection() {
+    wall_width = 5;
+    height = 20;
+    
+    $fn=50;
+    
+    difference() {
+        
+        hull()
+            for (i=[-1,1])
+                translate([0,i*23])
+                    cylinder(d=saddle_pin_thickness+2*wall_width, h=height);
+        
+        cube([saddle_pin_thickness+saddle_pin_spacing,
+            saddle_pin_width+saddle_pin_spacing, 200],center=true);
+        
+        for (i=[-1,1])
+            translate([0,i*29,6]) {
+                scale([1,1,3]) nutHole(8, tolerance=0.1);
+                cylinder(d=8.2,h=40,center=true);
             }
             
-            rotate([-angle,0,0])
-                linear_extrude(height=1)
-                    polygon(points = points_b);
-            
-        }
-        sphere(r=10, $fn=9);
+        
+        for (i=[-1,1])
+            translate([0,i*8, height*3/5])
+                rotate([0,90,0]) rotate([0,0,90]) 
+                    safecylinder(d=5,h=80,center=true,$fn=20);
+        
     }
 }
 
 
 module saddle_pin() {
     saddle_pin_height = 170;
-    translate([0,0,100-saddle_pin_height/2]) cube([saddle_pin_thickness,saddle_pin_width,saddle_pin_height], center=true);
+    translate([0,0,100-saddle_pin_height/2])
+        cube([saddle_pin_thickness,saddle_pin_width,saddle_pin_height], center=true);
 }
 
 
@@ -203,13 +198,14 @@ module saddle_frame_bolts() {
 }
 
 
-saddle_offset = 0;
+saddle_offset = 50;
 
 module saddle_complete() {
     color("SpringGreen") saddle_mount();
-    *color("SpringGreen") translate([0,-60, saddle_offset+110]) saddle();
-    *color(frame_color) translate([0,0, saddle_offset+5]) saddle_pin();
-    *saddle_frame_bolts();
+    color(frame_color) translate([0, 0, saddle_offset+100]) saddle();
+    color(frame_color) translate([0,0, saddle_offset]) saddle_pin();
+    color("SpringGreen") translate([0, 0, saddle_offset+100]) rotate([180,0,0]) saddle_to_pin_connection();
+    saddle_frame_bolts();
 }
 
 
@@ -223,3 +219,4 @@ translate([0,-saddle_y,0]) color("LightSlateGray", 0.3) back_wheel();
 //saddle_mount();
 //color(frame_color) translate([0,0, saddle_offset+5]) saddle_pin();
 
+translate([100,0,0]) saddle_to_pin_connection();
