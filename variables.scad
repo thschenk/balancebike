@@ -17,7 +17,7 @@ fork_spacing = 100;
 fork_width = 50;
 
 //wood_thickness = 9;
-wood_thickness = 15;
+wood_thickness = 12;
 
 
 // dependent parameters

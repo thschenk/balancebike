@@ -10,13 +10,14 @@ use <utils.scad>;
 
 frame_y_offset = -2;
 
-inner_h = (wood_thickness==9) ? 11 : 15;
-outer_h = (wood_thickness==9) ? 12 : 12;
+inner_h = (wood_thickness==9) ? 11 : 13;
+outer_h = (wood_thickness==9) ? 12 : 14;
 
 axle_clamp_inner_x = 53;
 axle_clamp_outer_x = axle_clamp_inner_x+inner_h+0.4;
 
 module axle_clamp_inner() {
+    $fn=60;
     
     difference() {
         cylinder(d1=20,d2=20+2*inner_h,h=inner_h);
@@ -37,6 +38,7 @@ module axle_clamp_inner() {
 }
 
 module axle_clamp_outer() {
+    $fn=60;
     
     difference() {
         cylinder(d1=20+2*outer_h,d2=20,h=outer_h);
@@ -87,15 +89,16 @@ translate([200,0,0]) difference() {
 
 
 module axle_clamps_print() {
-    spacing=18;
+    spacing=20;
     
     copy_mirror_y() {
         
-        translate([spacing,-spacing,0])
-            axle_clamp_inner();
-        
-        translate([spacing,spacing,outer_h])
+        translate([spacing,-spacing,inner_h])
             rotate([180,0,0])
+                axle_clamp_inner();
+        
+        translate([spacing,spacing,0])
+            rotate([0,0,0])
                 axle_clamp_outer();
     }
 }
