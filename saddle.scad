@@ -39,23 +39,24 @@ module saddle() {
 }
 
 module saddle_to_pin_connection() {
-    wall_width = 5;
+    wall_width = 4;
     height = 20;
-    
+    r = 13;
     $fn=50;
     
     difference() {
         
         hull()
-            for (i=[-1,1])
-                translate([0,i*23])
-                    cylinder(d=saddle_pin_thickness+2*wall_width, h=height);
+            for (x=[-1,1])
+                for (y=[-1,1])
+                    translate([x*(saddle_pin_thickness/2+wall_width-r),y*(32+wall_width-r)])
+                        cylinder(r=r, h=height);
         
         cube([saddle_pin_thickness+saddle_pin_spacing,
             saddle_pin_width+saddle_pin_spacing, 200],center=true);
         
         for (i=[-1,1])
-            translate([0,i*29,6]) {
+            translate([0,i*27,6]) {
                 scale([1,1,3]) nutHole(8, tolerance=0.1);
                 cylinder(d=8.2,h=40,center=true);
             }
