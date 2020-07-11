@@ -16,7 +16,7 @@ bolt_y_offset = 15;
 bolts_yz = [[mount_length/2-bolt_y_offset,15],
             [mount_length/2-bolt_y_offset,60],
             [-mount_length/2+bolt_y_offset, 25]];
-bolt_x_offset = 12;
+bolt_x_offset = 10;
 
 x0 = frame_spacing_axis/2 - saddle_y*sin(frame_angle);
 
@@ -175,9 +175,16 @@ module saddle_mount() {
         // bolt holes for pin
         bolt_hole_heights = [20, 50];
         for (bolt_hole_height=bolt_hole_heights)
-            translate([0,0,bolt_hole_height])
-                rotate([90,0,0])
-                    safecylinder(d=5,h=80,center=true);
+            translate([0,0,bolt_hole_height]) {
+                rotate([-90,0,0]) rotate([0,0,180])
+                    safecylinder(d=5,h=80,center=false);
+                
+                translate([0,saddle_pin_width/2 + wall - 5 +0.3,0])
+                    rotate([-90,0,0])
+                        cylinder(d1=5,d2=8,h=5,center=false);
+                
+            }
+        
         
     }
     
