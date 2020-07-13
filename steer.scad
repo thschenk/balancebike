@@ -4,7 +4,7 @@ use <hinge_named.scad>;
 use <hinge.scad>;
 
 
-handle_bar_diameter = 25; 
+handle_bar_diameter = 23.5; 
 handle_bar_width = 400;
 handle_bar_height = 400;
 
@@ -45,8 +45,20 @@ module handlebar() {
 }
 
 module handleprotector() {
-    rotate([0,90,0]) 
-        cylinder(d=35, h=fork_spacing, center=true);
+    
+    wall_width=4;
+    
+    difference() {
+        union() {
+            rotate([0,90,0]) 
+                cylinder(d=50, h=fork_spacing, center=true);
+            translate([-fork_spacing/2, -25, -30])
+                cube([fork_spacing, 50, 30]);
+        }
+        
+        translate([-fork_spacing/2+wall_width,-50/2+wall_width,-40-handle_bar_diameter/2-wall_width])
+            round_cube(l=fork_spacing-2*wall_width,w=50-2*wall_width,h=40,r=5,$fn=30);
+    }  
 }
 
 

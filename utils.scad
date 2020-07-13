@@ -22,3 +22,12 @@ module safecylinder(d, h, center = false) {
  cylinder(d=d, h=h, center=center);
  linear_extrude(h, center=center) polygon([[-x1,y],[x1,y],[x2,d/2],[-x2,d/2]]);
 }
+
+module round_cube(l=40,w=30,h=20,r=5,$fn=30){
+	hull(){ 
+		translate ([r, r, 0]) cylinder (h = h, r=r);
+		translate ([r, w-r, 0]) cylinder (h = h, r=r);
+		translate ([l-r,w-r, 0]) cylinder (h = h, r=r);
+		translate ([l-r, r, 0]) cylinder (h = h, r=r);
+	}
+}

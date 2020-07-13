@@ -46,3 +46,8 @@
 #### Axle
     Same settings as Hinge frame, except for:
     Wall thickness 2mm
+
+#### Saddle mount
+      Same settings as Hinge frame, except for:
+      Wall thickness 2mm
+      Bottom/top thickness 1mm
