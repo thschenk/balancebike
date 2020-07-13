@@ -22,21 +22,34 @@ x0 = frame_spacing_axis/2 - saddle_y*sin(frame_angle);
 
 wall = 7;
 
+sadle_to_pin_bolt_y = 27;
+
 module saddle() {
-    r = 5;
-    w1 = 40;
-    w2 = 80;
-    length = 160;
-    y_offset = 20;
+    r = 10;
+    w1 = 50;
+    w2 = 90;
+    length = 220;
+    y_offset = 25;
     
-    hull() 
-        copy_mirror_y() {
-            translate([w1/2-r, length/2-r+y_offset,0])
-                cylinder(r=r, h=wood_thickness);
-            translate([w2/2-r, -length/2-r+y_offset,0])
-                cylinder(r=r, h=wood_thickness);
+    difference() {
+        hull() 
+            copy_mirror_y() {
+                translate([w1/2-r, length/2-r+y_offset,0])
+                    cylinder(r=r, h=wood_thickness);
+                translate([w2/2-r, -(length/2-r)+y_offset,0])
+                    cylinder(r=r, h=wood_thickness);
+            }
+            
+        // bolt hole
+        copy_mirror_x() {
+            translate([0,sadle_to_pin_bolt_y,0])
+                cylinder(d=8,h=3*wood_thickness, center=true, $fn=30);
         }
+    }
 }
+
+
+
 
 module saddle_to_pin_connection() {
     wall_width = 4;
@@ -56,7 +69,7 @@ module saddle_to_pin_connection() {
             saddle_pin_width+saddle_pin_spacing, 200],center=true);
         
         for (i=[-1,1])
-            translate([0,i*27,6]) {
+            translate([0,i*sadle_to_pin_bolt_y,6]) {
                 scale([1,1,3]) nutHole(8, tolerance=0.1);
                 cylinder(d=8.2,h=40,center=true);
             }

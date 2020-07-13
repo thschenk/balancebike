@@ -57,7 +57,7 @@ module handleprotector() {
 
 hp_d1 = 36;
 hp_d2 = 28;
-hp_d3 = 24.5+0.6;
+hp_d3 = 24.5+0.35;
 
 hp_inner_margin = 0.8;
 
