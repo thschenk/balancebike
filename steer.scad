@@ -25,18 +25,16 @@ module fork_flat(d=fork_width,h=handle_bar_height) {
 
 
 module fork_side() {
-    thickness=15;
+    
     
     rotate([90,0,0]) rotate([0,90,0])
-        linear_extrude(height=thickness) {
+        linear_extrude(height=wood_thickness) {
             fork_flat();
         }
 }
 
 
 
-//fork_flat();
-//fork_side();
 
 
 module handlebar() {
@@ -45,21 +43,71 @@ module handlebar() {
 }
 
 module handleprotector() {
+    translate([-fork_spacing/2,0,0])
+        rotate([0,90,0]) rotate([0,0,-90])
+            handleprotector_inner();
     
-    wall_width=4;
     
+    copy_mirror_y()
+        translate([fork_spacing/2+wood_thickness,0,0])
+            rotate([0,-90,0]) rotate([0,0,90])
+                handleprotector_side();
+
+}
+
+hp_d1 = 35;
+hp_d2 = 27.5;
+hp_d3 = 24.5;
+
+screw_hole_offset = 15;
+
+module handleprotector_side() {
+    $fn=50;
+    w1=4;
+    w2=40;
     difference() {
         union() {
-            rotate([0,90,0]) 
-                cylinder(d=50, h=fork_spacing, center=true);
-            translate([-fork_spacing/2, -25, -30])
-                cube([fork_spacing, 50, 30]);
+            translate([0,0,-w1]) cylinder(d=hp_d1, h=w1);
+            cylinder(d=hp_d2, h=w2);
         }
+        translate([0,0,-1-w1]) cylinder(d=hp_d3 , h=w1+w2+2);
         
-        translate([-fork_spacing/2+wall_width,-50/2+wall_width,-40-handle_bar_diameter/2-wall_width])
-            round_cube(l=fork_spacing-2*wall_width,w=50-2*wall_width,h=40,r=5,$fn=30);
-    }  
+        
+        
+        translate([0, 0, screw_hole_offset + 12])
+            rotate([-90,0,0]) rotate([0,0,180])
+                    safecylinder(d=3,h=80,center=false);
+
+    }
 }
+
+
+
+
+module handleprotector_inner() {
+    difference() {
+        cylinder(d=hp_d1, h=fork_spacing);
+     
+        translate([0,0,-1]) cylinder(d=hp_d2+0.5, h=fork_spacing+2);
+     
+        // bolt holes for pin
+        screw_hole_heights = [screw_hole_offset, fork_spacing-screw_hole_offset];
+        for (screw_hole_height=screw_hole_heights )
+            translate([0,0,screw_hole_height]) {
+                
+                translate([0,hp_d1/2-4,0])
+                    rotate([-90,0,0])
+                        cylinder(d1=2,d2=7,h=5,center=false);
+                
+            }            
+    }
+}
+
+
+
+translate([-100,0,0]) handleprotector_side();
+
+translate([-140,0,12]) handleprotector_inner();
 
 
 module steer() {
