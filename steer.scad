@@ -4,7 +4,7 @@ use <hinge_named.scad>;
 use <hinge.scad>;
 
 
-handle_bar_diameter = 23.5; 
+handle_bar_diameter = 24.5; 
 handle_bar_width = 400;
 handle_bar_height = 400;
 
@@ -19,7 +19,7 @@ module fork_flat(d=fork_width,h=handle_bar_height) {
         // axle hole
         circle(d=8.5);
         
-        translate([0,h]) circle(d=handle_bar_diameter);
+        translate([0,h]) circle(d=hp_d2);
     }
 }
 
