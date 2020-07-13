@@ -55,9 +55,11 @@ module handleprotector() {
 
 }
 
-hp_d1 = 35;
-hp_d2 = 27.5;
-hp_d3 = 24.5;
+hp_d1 = 36;
+hp_d2 = 28;
+hp_d3 = 24.5+0.6;
+
+hp_inner_margin = 0.8;
 
 screw_hole_offset = 15;
 
@@ -85,11 +87,28 @@ module handleprotector_side() {
 
 
 module handleprotector_inner() {
+    $fn=50;
+    
+    narrow_z = 16;
+    
+    
+    
+    
     difference() {
         cylinder(d=hp_d1, h=fork_spacing);
      
-        translate([0,0,-1]) cylinder(d=hp_d2+0.5, h=fork_spacing+2);
-     
+        // narrowest cut
+        translate([0,0,-1]) cylinder(d=hp_d3, h=fork_spacing+2);
+        
+        // d2 cuts (widest)
+        translate([0,0,fork_spacing/2])
+            copy_mirror_z() {
+                translate([0,0,narrow_z])
+                    cylinder(d=hp_d2+hp_inner_margin, h=50);
+                
+                translate([0,0,narrow_z-5.0+0.1])
+                    cylinder(d2=hp_d2+hp_inner_margin, d1=hp_d3, h=5);
+            }
         // bolt holes for pin
         screw_hole_heights = [screw_hole_offset, fork_spacing-screw_hole_offset];
         for (screw_hole_height=screw_hole_heights )
@@ -105,10 +124,14 @@ module handleprotector_inner() {
 
 
 
-translate([-100,0,0]) handleprotector_side();
-
-translate([-140,0,12]) handleprotector_inner();
-
+translate([-100,0,0])
+    difference() {
+        union() {
+            translate([0,0,0]) handleprotector_side();
+            translate([0,0,12]) handleprotector_inner();
+        }
+        translate([-75,0,0]) cube([150,150,150]);
+    }
 
 module steer() {
     copy_mirror_y() {

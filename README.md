@@ -51,3 +51,8 @@
       Same settings as Hinge frame, except for:
       Wall thickness 2mm
       Bottom/top thickness 1mm
+
+### handle bar protector inner
+      Wall thickness 1mm
+      Top/bottom 1mm
+      Brim
